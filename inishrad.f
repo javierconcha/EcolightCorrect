@@ -383,7 +383,7 @@ c	Don't print out component a's and b's if "minimal" printout is selected
 		do iii=1,npirad
 		   izz = izirad(iii)
 		   write(10,1125) izz,zeta(izz),z(izz),
-	1                 (astore(izz,i),i=1,npr),acoef(izz,0)
+     1                 (astore(izz,i),i=1,npr),acoef(izz,0)
 		end do
 c
 c     loop over depth again to print out scattering coefficients.
