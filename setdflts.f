@@ -10,7 +10,8 @@ c     change these values to modify the running of Ecolight.
 c
       INCLUDE "DIMENS_XL.INC"
 c
-      Character sl*2, bsl*2, sysl*1, dirEco*32
+      Character sl*2, bsl*2, sysl*1
+      Character*120 dirEco
 C
       COMMON /Cdirnames/ datadir,digitdir,spreadir,
      1                   phasedir,surfdir,bottdir, Pdir
@@ -78,12 +79,16 @@ cCJ      sysl=sl(1:1)
 c     For UNIX machines: use slash
       bsl='/ '
       sysl=bsl(1:1)
-      dirEco='/home/jxc4005/ecolight52_install'
-C
+
+cJC     root directory
+         dirEco(1:32)= sysl //'home'// sysl //'jxc4005'// sysl
+     1              // 'ecolight52_install'
+
+C'
 c
 c        The directory containing the input data files:
 cJC         datadir = '..' // sysl // 'data' // sysl
-         datadir = dirEco // sysl // 'data' // sysl
+         datadir = dirEco(1:32) // sysl // 'data' // sysl
 c  
 c        The directory where digital output is to be archived:
 cJC         digitdir = '..' // sysl // 'output' // sysl //
@@ -102,20 +107,21 @@ c
 c        The directory containing discretized windsurface files:
 cJC         phasedir = '..' // sysl // 'data' // sysl // 'phasefun' // sysl
 cJC     1              // trim(whatIam(iam)) // sysl
-         phasedir = dirEco // sysl // 'data' // sysl // 'phasefun' // sysl
-     1              // trim(whatIam(iam)) // sysl
+         phasedir = dirEco(1:32) // sysl // 'data' // sysl //
+     1        'phasefun' // sysl  // trim(whatIam(iam)) // sysl
 
 c
 c        The directory containing discretized phase function files:
 cJC         surfdir = '..' // sysl // 'data' // sysl // 'surfaces' // sysl
 CJC     1              // trim(whatIam(iam)) // sysl
-         surfdir = dirEco // sysl // 'data' // sysl // 'surfaces' // sysl
-     1              // trim(whatIam(iam)) // sysl
+         surfdir = dirEco(1:32) // sysl // 'data' // sysl // 
+     1         'surfaces' // sysl // trim(whatIam(iam)) // sysl
 
 c
 c        The directory containing bottom reflectance files:
 cJC         bottdir = '..' // sysl // 'data' // sysl // 'botmrefl' // sysl
-         bottdir = dirEco // sysl // 'data' // sysl // 'botmrefl' // sysl
+         bottdir = dirEco(1:32) // sysl // 'data' // sysl //
+     1         'botmrefl' // sysl
 c
 c        The directory where Printout ASCII output is to be archived:
 cJC         Pdir = '..' // sysl // 'output' // sysl //
@@ -139,7 +145,8 @@ c     by routine lidata in grirrad.f:
 c      gcifile = '..' // sysl // 'data' // sysl // 'gcirrad.txt'
 c     by routine lidata_new in RADTRANX.f:
 cJC      gcifile = '..' // sysl // 'data' // sysl // 'RADTRANX_dbase.txt'
-      gcifile = dirEco // sysl // 'data' // sysl // 'RADTRANX_dbase.txt'
+      gcifile = dirEco(1:32) // sysl // 'data' //
+     1                 sysl // 'RADTRANX_dbase.txt'
 c
       iein = 0                  ! compute irradiances
       iblw = 0                  ! above-surface values
