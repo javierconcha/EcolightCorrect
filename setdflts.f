@@ -38,7 +38,7 @@ c     **(& listed in main.f)
 c     **Contains the filename written
 c     **in a format agreeable with the system (UNIX/PC)
       COMMON/gcifname/gcifile
-      character*32 gcifile
+      character*120 gcifile
 c
       logical IamEL
       external IamEL  

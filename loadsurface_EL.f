@@ -1,5 +1,6 @@
 C     Last change:  LKS  25 May 2008    7:32 pm
       subroutine loadsurface(windspd, wavelen)
+c      implicit none
 c
       real windspd, wavelen
       real refr
@@ -73,7 +74,6 @@ c     surface data for the given wind speed
 c
 c
       open(nusrt1,file=surfname, form='formatted',status='old', err=999)
-
       read(nusrt1,fmt='(a)') surftitl
       read(nusrt1,402) Udum,mdum,iqdum,nraydum
       read(nusrt1,403) imisc1,fmisc1
@@ -90,10 +90,21 @@ c
       read(nusrt1,404) (bndmu(i),i=1,nmu)
       read(nusrt1,404) (omega(i),i=1,nmu)
       read(nusrt1,404) (deltmu(i),i=1,nmu)
-c
+
+      read(nusrt1,fmt='(a)') rtname
+c      print *,"rtname is ",rtname
       call readhat(nusrt1, nmu, raw)
+
+      read(nusrt1,fmt='(a)') rtname
+c      print *,"rtname is ",rtname
       call readhat(nusrt1, nmu, taw)
+
+      read(nusrt1,fmt='(a)') rtname
+c      print *,"rtname is ",rtname
       call readhat(nusrt1, nmu, rwa)
+
+      read(nusrt1,fmt='(a)') rtname
+c      print *,"rtname is ",rtname
       call readhat(nusrt1, nmu, twa)
       close(nusrt1)
 c
@@ -137,15 +148,23 @@ c
          read(nusrt2,404) (deltmu(i),i=1,nmu)
 c
 c     Load and get averages
+      read(nusrt2,fmt='(a)') rtname
+c      print *,"rtname is ",rtname
       call readhat(nusrt2, nmu, rt2)
       call gethat(nmu, xinterp, raw, rt2)
 
+      read(nusrt2,fmt='(a)') rtname
+c     print *,"rtname is ",rtname
       call readhat(nusrt2, nmu, rt2)
       call gethat(nmu, xinterp, taw, rt2)
 
+      read(nusrt2,fmt='(a)') rtname
+c      print *,"rtname is ",rtname
       call readhat(nusrt2, nmu, rt2)
       call gethat(nmu, xinterp, rwa, rt2)
 
+      read(nusrt2,fmt='(a)') rtname
+c      print *,"rtname is ",rtname
       call readhat(nusrt2, nmu, rt2)
       call gethat(nmu, xinterp, twa, rt2)
 c
@@ -193,6 +212,8 @@ c	**** average values
 
 !*******************************************************
       subroutine readhat(nusrt, nhat, hat)
+      
+c      implicit none  
       INCLUDE "DIMENS_XL.INC"
       PARAMETER (mxhat=mxmu) 
 c
@@ -200,10 +221,13 @@ c
       real hat(mxhat,mxhat) 
 
 c	**** read in pairs of arrays
-         read(nusrt,fmt='(a)') rtname     !unique to EL
-	DO I=1,nhat
-	   READ(nusrt,404) (hat(I,J),J=1,nhat)
-	end do
+
+cJC       read(nusrt,fmt='(a)') rtname     !unique to EL
+
+
+        DO I=1,nhat
+                READ(nusrt,404) (hat(I,J),J=1,nhat)
+        end do
 
   404 format (10(e12.6,1x))
       end subroutine
