@@ -1,14 +1,17 @@
 #FC = /tools/g95/bin/g95
 FC = g95
 
+FFLAGS = -ftrace=full -c
+
+#FC = ifort # intel fortran compiler. Install: module load IntelClusterSuite
+
+#FFLAGS = -w -Vaxlib -c
+
 #FC = /usr/bin/gfortran
-#FFLAGS  =  #-fsloppy-char
 
 #FFLAGS          = -w -c
 
-FFLAGS = -ftrace=full -c
 
-#FFLAGS = -c
 FLFLAGS =
 
 SOURCES_f = $(shell echo *.f)
